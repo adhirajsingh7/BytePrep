@@ -9,7 +9,6 @@ import { createRequire } from 'node:module'
 const dbRequire = createRequire(
   path.resolve(import.meta.dirname, '../../packages/db/package.json'),
 )
-
 const prismaClientDir = path.dirname(dbRequire.resolve('@prisma/client'))
 const prismaDefaultClient = path.join(
   prismaClientDir,
@@ -26,5 +25,12 @@ export default defineConfig({
       '.prisma/client/default': prismaDefaultClient,
     },
   },
-  plugins: [tailwindcss(), tanstackStart(), react(), nitro()],
+  plugins: [
+    tailwindcss(),
+    tanstackStart(),
+    react(),
+    nitro({
+      preset: process.env.VERCEL ? 'vercel' : undefined,
+    }),
+  ],
 })
