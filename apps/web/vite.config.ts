@@ -31,6 +31,10 @@ export default defineConfig({
     react(),
     nitro({
       preset: process.env.VERCEL ? 'vercel' : undefined,
+      externals: {
+        inline: [],
+        external: ['@prisma/client', '.prisma/client'],
+      },
     }),
   ],
 })
