@@ -12,16 +12,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.resolve(import.meta.dirname, './src'),
+      '.prisma/client/default': path.resolve(
+        import.meta.dirname,
+        '../../packages/db/node_modules/.prisma/client/default.js',
+      ),
     },
   },
-  plugins: [
-    tailwindcss(),
-    tanstackStart(),
-    react(),
-    nitro({
-      rollupConfig: {
-        external: ['.prisma/client/default'],
-      },
-    }),
-  ],
+  plugins: [tailwindcss(), tanstackStart(), react(), nitro()],
 })
