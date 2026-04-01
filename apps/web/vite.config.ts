@@ -4,6 +4,17 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 import path from 'node:path'
+import { createRequire } from 'node:module'
+
+const dbRequire = createRequire(
+  path.resolve(import.meta.dirname, '../../packages/db/package.json'),
+)
+
+const prismaClientDir = path.dirname(dbRequire.resolve('@prisma/client'))
+const prismaDefaultClient = path.join(
+  prismaClientDir,
+  '../../.prisma/client/default.js',
+)
 
 export default defineConfig({
   server: {
@@ -12,10 +23,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': path.resolve(import.meta.dirname, './src'),
-      '.prisma/client/default': path.resolve(
-        import.meta.dirname,
-        '../../packages/db/node_modules/.prisma/client/default.js',
-      ),
+      '.prisma/client/default': prismaDefaultClient,
     },
   },
   plugins: [tailwindcss(), tanstackStart(), react(), nitro()],
