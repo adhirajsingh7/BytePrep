@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @mock-prep/db exec prisma generate && pnpm turbo build --filter=@mock-prep/web",
-  "installCommand": "echo 'handled in buildCommand'"
-}
